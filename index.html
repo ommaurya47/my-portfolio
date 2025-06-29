@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Om Maurya</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for social media icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Material You Inspired Color Variables (Adjusted for Midnight Indigo & Teal Mist) */
+        :root {
+            --md-sys-color-primary: #1A1F36; /* Deep Indigo - Formerly primary-color-dark */
+            --md-sys-color-on-primary: #FFFFFF; /* White for text on primary */
+            --md-sys-color-primary-container: #D1E4FF; /* Light blue for containers (optional, can be similar to surface) */
+            --md-sys-color-on-primary-container: #001C3B; /* Darker text on primary container */
+
+            --md-sys-color-secondary: #00C2A8; /* Teal Mist - Formerly accent-color-teal */
+            --md-sys-color-on-secondary: #FFFFFF; /* White for text on secondary */
+            --md-sys-color-secondary-container: #CCFAE0; /* Lighter teal for containers (optional) */
+            --md-sys-color-on-secondary-container: #002118; /* Darker text on secondary container */
+
+            --md-sys-color-tertiary: #5C4B5E; /* A complementary color, e.g., muted purple */
+            --md-sys-color-on-tertiary: #FFFFFF;
+            --md-sys-color-tertiary-container: #E7DDEB;
+            --md-sys-color-on-tertiary-container: #1C0020;
+
+            --md-sys-color-surface: #F4F7FA; /* Light Grayish Blue - Formerly bg-light */
+            --md-sys-color-on-surface: #212121; /* Charcoal Black - Formerly text-charcoal */
+            --md-sys-color-surface-variant: #E8EEF2; /* Slightly darker light grayish blue - Formerly surface-elevated-light */
+            --md-sys-color-on-surface-variant: #49454F; /* Muted gray for secondary text */
+
+            /* Semantic remapping for clarity */
+            --background-color: var(--md-sys-color-surface);
+            --text-color-primary: var(--md-sys-color-on-surface);
+            --text-color-secondary: var(--md-sys-color-on-surface-variant);
+            --card-background: var(--md-sys-color-surface-variant);
+            --link-color: var(--md-sys-color-primary);
+            --link-hover-color: var(--md-sys-color-secondary);
+            --button-background-primary: var(--md-sys-color-primary);
+            --button-text-primary: var(--md-sys-color-on-primary);
+            --button-background-accent: var(--md-sys-color-secondary);
+            --button-text-accent: var(--md-sys-color-on-secondary);
+        }
+
+        html, body {
+            height: 100%; /* Important for proper flexbox layout */
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color-primary);
+            font-family: 'Inter', 'Roboto', sans-serif; /* Inter for headings, Roboto for body */
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto; /* Allow the body to scroll if content exceeds viewport */
+        }
+
+        /* Animations */
+        .animate-fade-in {
+            animation: fadeIn 1s ease-out forwards;
+            opacity: 0; /* Start hidden */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Navigation link styles to match tab-button appearance on hover/active */
+        .nav-link {
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px; /* Fully rounded */
+            font-weight: 500;
+            color: var(--text-color-primary);
+            background-color: transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link:hover {
+            background-color: var(--md-sys-color-surface-variant);
+            color: var(--md-sys-color-primary);
+            transform: translateY(-2px);
+        }
+        
+        /* Active link style for the current page */
+        .nav-link.active-page {
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for active tab */
+        }
+
+        /* Styles for the main content card */
+        .main-card {
+            background-color: transparent; /* Remains transparent for subtlety */
+            box-shadow: none; /* No shadow for subtlety */
+            padding: 4rem 3rem; /* Increased padding for a slightly bigger feel */
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .navbar-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .nav-links-group { /* Use this class for the group of links */
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            .nav-link {
+                width: calc(100% - 2rem); /* Full width minus padding */
+            }
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-image {
+                margin-top: 2rem;
+                margin-left: 0;
+            }
+            .text-6xl {
+                font-size: 3.2rem;
+            }
+            .text-8xl {
+                font-size: 4.5rem;
+            }
+            .text-xl {
+                font-size: 1rem;
+            }
+            .text-2xl {
+                font-size: 1.125rem;
+            }
+            .px-6 {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            .main-card {
+                padding: 2.5rem 1.5rem; /* Adjusted padding for smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="sticky top-0 bg-[var(--card-background)]/90 backdrop-blur-sm z-50 shadow-lg rounded-b-2xl">
+        <div class="container mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center navbar-container">
+            <a href="index.html" class="text-3xl font-bold text-[var(--link-color)] tracking-wide hover:text-[var(--link-hover-color)] transition-colors mb-4 md:mb-0">Om Maurya</a>
+            <!-- Navigation Links -->
+            <div class="flex flex-wrap justify-center md:justify-end gap-2 md:gap-4 text-lg font-medium nav-links-group">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="projects.html" class="nav-link">Projects</a>
+                <a href="achievements.html" class="nav-link">Achievements</a>
+                <a href="hobbies.html" class="nav-link">Hobbies</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <!-- Added flex-grow to ensure the main content pushes the footer to the bottom -->
+    <main class="container mx-auto px-6 flex-grow flex flex-col">
+        <!-- Home Content Section -->
+        <section id="home-panel" class="rounded-2xl border border-[var(--md-sys-color-outline)]/30 main-card max-w-6xl w-full animate-fade-in mx-auto my-auto">
+            <div class="flex flex-col md:flex-row items-center justify-center gap-8 hero-content">
+                <div class="flex-1 text-center"> 
+                    <h1 class="text-6xl md:text-8xl font-extrabold mb-4 text-[var(--link-color)] animate-fade-in">Om Maurya</h1>
+                    <p class="text-lg md:text-xl leading-relaxed mb-6 text-[var(--text-color-secondary)] mx-auto md:mx-0 animate-fade-in" style="animation-delay: 0.3s;">
+                        I am a 3rd year B.Tech student at <strong>Parul University, Class of 2027</strong>, aspiring to be a <strong>Data Analyst</strong>. I am learning the basics of Python, SQL, Excel, and data visualization. I enjoy working with data and want to build projects that help find useful information from it. I am exploring how to clean, analyze, and present data in a simple and clear way.
+                    </p>
+                    <a href="projects.html" class="inline-block bg-[var(--button-background-accent)] text-[var(--button-text-accent)] font-bold py-3 px-8 rounded-full shadow-lg hover:bg-[var(--link-color)] hover:text-[var(--link-hover-color)] transition-all duration-300 transform hover:scale-105 animate-fade-in" style="animation-delay: 0.6s;">
+                        Explore My Projects
+                    </a>
+                </div>
+                <div class="flex-shrink-0 hero-image animate-fade-in" style="animation-delay: 0.9s;">
+                    <img src="assets/profile.jpg" alt="Om Maurya Profile Picture" class="rounded-xl w-48 h-48 md:w-64 md:h-64 object-cover object-top border-4 border-[var(--md-sys-color-primary)] shadow-lg">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[var(--card-background)] py-6 shadow-lg rounded-t-2xl">
+        <div class="container mx-auto px-4 text-center">
+            <!-- Social Icons - Primary deep indigo, hover to accent teal -->
+            <div class="flex justify-center space-x-8 mb-3">
+                <a href="mailto:mauryaom74@gmail.com" class="text-[var(--link-color)] hover:text-[var(--link-hover-color)] transition-colors transform hover:scale-110" aria-label="Email Om Maurya">
+                    <i class="fas fa-envelope text-2xl"></i>
+                </a>
+                <a href="https://github.com/ommaurya47" target="_blank" rel="noopener noreferrer" class="text-[var(--link-color)] hover:text-[var(--link-hover-color)] transition-colors transform hover:scale-110" aria-label="Om Maurya's GitHub Profile">
+                    <i class="fab fa-github text-2xl"></i>
+                </a>
+                <a href="https://linkedin.com/in/ommaurya47" target="_blank" rel="noopener noreferrer" class="text-[var(--link-color)] hover:text-[var(--link-hover-color)] transition-colors transform hover:scale-110" aria-label="Om Maurya's LinkedIn Profile">
+                    <i class="fab fa-linkedin text-2xl"></i>
+                </a>
+            </div>
+            <!-- Copyright Text - Muted Gray Text Color -->
+            <p class="text-[var(--text-color-secondary)] text-sm">© 2025 Om Maurya. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-links-group a');
+            
+            // Set active class for the current page based on href
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            navLinks.forEach(link => {
+                // Ensure correct matching for 'index.html' and other pages
+                const linkHref = link.getAttribute('href');
+                if (linkHref === currentPage || (linkHref === 'index.html' && currentPage === '')) {
+                    link.classList.add('active-page'); // Use active-page class for navigation links
+                } else {
+                    link.classList.remove('active-page');
+                }
+            });
+
+            // Universal fade-in animation on scroll for elements with 'animate-fade-in' class
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observerCallback = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fade-in');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            };
+
+            const faderObserver = new IntersectionObserver(observerCallback, observerOptions);
+
+            document.querySelectorAll('.animate-fade-in').forEach(element => {
+                // Only observe if the element hasn't already been animated (due to immediate visibility)
+                // This prevents re-observing elements that are visible on load
+                if (element.getClientRects().length && element.getBoundingClientRect().top < window.innerHeight) {
+                    element.classList.add('animate-fade-in'); // Apply animation immediately if visible on load
+                } else {
+                    faderObserver.observe(element); // Otherwise, observe for intersection
+                }
+            });
+            
+            document.body.classList.add('loaded');
+        });
+    </script>
+</body>
+</html>
