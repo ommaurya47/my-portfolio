@@ -6,32 +6,28 @@
     <title>Achievements - Om Maurya</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome for social media icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        /* Material You Inspired Color Variables (Adjusted for Midnight Indigo & Teal Mist) - Consistent with other pages */
         :root {
-            --md-sys-color-primary: #1A1F36; /* Deep Indigo */
-            --md-sys-color-on-primary: #FFFFFF; /* White for text on primary */
+            --md-sys-color-primary: #1A1F36;
+            --md-sys-color-on-primary: #FFFFFF;
             --md-sys-color-primary-container: #D1E4FF;
             --md-sys-color-on-primary-container: #001C3B;
-
-            --md-sys-color-secondary: #00C2A8; /* Teal Mist */
+            --md-sys-color-secondary: #00C2A8;
             --md-sys-color-on-secondary: #FFFFFF;
             --md-sys-color-secondary-container: #CCFAE0;
             --md-sys-color-on-secondary-container: #002118;
-
             --md-sys-color-tertiary: #5C4B5E;
             --md-sys-color-on-tertiary: #FFFFFF;
             --md-sys-color-tertiary-container: #E7DDEB;
             --md-sys-color-on-tertiary-container: #1C0020;
-
-            --md-sys-color-surface: #F4F7FA; /* Light Grayish Blue */
-            --md-sys-color-on-surface: #212121; /* Charcoal Black */
-            --md-sys-color-surface-variant: #E8EEF2; /* Slightly darker light grayish blue */
-            --md-sys-color-on-surface-variant: #49454F; /* Muted gray for secondary text */
-
-            /* Semantic remapping for clarity */
+            --md-sys-color-surface: #F4F7FA;
+            --md-sys-color-on-surface: #212121;
+            --md-sys-color-surface-variant: #E8EEF2;
+            --md-sys-color-on-surface-variant: #49454F;
+            --md-sys-color-outline: #79747E;
+            --md-sys-color-inverse-surface: #303030;
+            --md-sys-color-inverse-on-surface: #F0F0F0;
             --background-color: var(--md-sys-color-surface);
             --text-color-primary: var(--md-sys-color-on-surface);
             --text-color-secondary: var(--md-sys-color-on-surface-variant);
@@ -44,20 +40,24 @@
             --button-text-accent: var(--md-sys-color-on-secondary);
         }
 
+        /* Ensure no horizontal overflow globally */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+
         body {
             background-color: var(--background-color);
             color: var(--text-color-primary);
             font-family: 'Inter', 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
             line-height: 1.6;
-            overflow: hidden; /* Prevent scrolling on the body */
             display: flex;
             flex-direction: column;
-            height: 100vh; /* Ensure body takes full viewport height */
+            overflow-y: auto; /* Allow vertical scrolling */
         }
 
-        /* Animations */
         .animate-fade-in {
             animation: fadeIn 1s ease-out forwards;
             opacity: 0;
@@ -68,7 +68,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Navigation link styles to match tab-button appearance on hover/active */
         .nav-link {
             padding: 0.75rem 1.5rem;
             border-radius: 9999px;
@@ -85,60 +84,143 @@
             color: var(--md-sys-color-primary);
             transform: translateY(-2px);
         }
-        
-        /* Active link style for the current page */
+
         .nav-link.active-page {
             background-color: var(--md-sys-color-primary);
             color: var(--md-sys-color-on-primary);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        /* Styles for the main content card */
         .main-card {
-            background-color: transparent; /* Remains transparent for subtlety */
-            box-shadow: none; /* No shadow for subtlety */
-            padding: 4rem 3rem; /* Generous padding */
+            background-color: transparent;
+            box-shadow: none;
+            padding: 4rem 3rem; /* Default for desktop */
         }
 
-        /* Responsive adjustments for overall layout */
+        /* Hamburger Menu Styles */
+        .hamburger {
+            display: none; /* Hidden on desktop */
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text-color-primary);
+        }
+
+        .nav-links-group {
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Mobile specific styles */
         @media (max-width: 768px) {
-            .navbar-container {
-                flex-direction: column;
-                align-items: center;
+            .hamburger {
+                display: block; /* Show hamburger on mobile */
             }
+
             .nav-links-group {
+                position: fixed;
+                top: 0;
+                right: -100%; /* Off-screen by default */
+                height: 100vh;
+                width: 100%;
+                background-color: var(--card-background);
                 flex-direction: column;
+                justify-content: center;
                 align-items: center;
-                gap: 0.5rem;
+                gap: 2rem;
+                z-index: 100;
+                opacity: 0;
+                pointer-events: none;
             }
+
+            .nav-links-group.active {
+                right: 0; /* Slide in */
+                opacity: 1;
+                pointer-events: auto;
+            }
+
             .nav-link {
-                width: calc(100% - 2rem); /* Full width minus padding */
+                width: 80%;
+                text-align: center;
+                font-size: 1.5rem;
+                padding: 1rem;
             }
+
+            .navbar-container {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
             .main-card {
-                padding: 2.5rem 1.5rem; /* Adjusted padding for smaller screens */
+                padding: 1.5rem 0.75rem; /* Reduced vertical & horizontal padding for the card */
+                width: calc(100% - 1.5rem); /* Account for container padding */
+                box-sizing: border-box; /* Include padding in the element's total width */
+                margin-top: 1rem; /* Adjust margin to ensure good spacing */
+                margin-bottom: 1rem;
+            }
+
+            /* Adjusted font sizes for better mobile readability */
+            .text-6xl {
+                font-size: 2.5rem; /* Slightly larger than home page for impact */
+                line-height: 1.2;
+            }
+
+            .text-5xl {
+                font-size: 2rem; /* Adjusted for h2 on mobile */
+                line-height: 1.2;
+            }
+
+            .text-lg {
+                font-size: 0.95rem; /* Slightly smaller for body text */
+            }
+
+            .text-xl {
+                font-size: 1.05rem; /* Adjusted for sub-headings/larger body text */
+            }
+
+            .text-2xl {
+                font-size: 1.15rem; /* Adjusted for larger text elements */
+            }
+
+            /* More adaptive padding for the main container */
+            .container {
+                padding-left: 0.75rem; /* Ensure container itself has reduced padding */
+                padding-right: 0.75rem;
+            }
+
+            .fa-trophy {
+                font-size: 4rem; /* Reduced size for the icon on mobile */
+            }
+        }
+
+        /* Further adjustments for very small devices */
+        @media (max-width: 480px) {
+            .main-card {
+                padding: 1rem 0.5rem; /* Even tighter padding for very small screens */
+                width: calc(100% - 1rem);
             }
             .text-6xl {
-                font-size: 3.2rem;
+                font-size: 2.25rem;
             }
             .text-5xl {
-                font-size: 2.5rem;
+                font-size: 1.75rem;
             }
-            .text-xl {
+            .text-xl, .text-2xl {
                 font-size: 1rem;
             }
-            .text-2xl {
-                font-size: 1.125rem;
+            .fa-trophy {
+                font-size: 3rem; /* Even smaller icon for very small screens */
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navbar - Consistent with other pages -->
     <nav class="sticky top-0 bg-[var(--card-background)]/90 backdrop-blur-sm z-50 shadow-lg rounded-b-2xl">
-        <div class="container mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center navbar-container">
-            <a href="index.html" class="text-3xl font-bold text-[var(--link-color)] tracking-wide hover:text-[var(--link-hover-color)] transition-colors mb-4 md:mb-0">Om Maurya</a>
-            <!-- Navigation Links - Styled to match tab-buttons -->
-            <div class="flex flex-wrap justify-center md:justify-end gap-2 md:gap-4 text-lg font-medium nav-links-group">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center navbar-container">
+            <a href="index.html" class="text-3xl font-bold text-[var(--link-color)] tracking-wide hover:text-[var(--link-hover-color)] transition-colors">Om Maurya</a>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+            <div class="nav-links-group flex flex-wrap justify-center md:justify-end gap-2 md:gap-4 text-lg font-medium">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="projects.html" class="nav-link">Projects</a>
                 <a href="achievements.html" class="nav-link active-page">Achievements</a>
@@ -147,13 +229,12 @@
         </div>
     </nav>
 
-    <!-- Main Content Area - Achievements Coming Soon -->
     <main class="container mx-auto px-6 flex-grow flex flex-col justify-center items-center">
         <section id="achievements-coming-soon" class="rounded-2xl border border-[var(--md-sys-color-outline)]/30 main-card max-w-4xl w-full text-center p-8 animate-fade-in">
-            <h2 class="text-5xl md:text-6xl font-extrabold text-[var(--link-color)] mb-6 animate-fade-in" style="animation-delay: 0.2s;">
+            <h2 class="text-5xl md:text-6xl font-extrabold text-[var(--link-color)] mb-4 animate-fade-in" style="animation-delay: 0.2s;">
                 Achievements and Certifications
             </h2>
-            <p class="text-xl md:text-2xl leading-relaxed text-[var(--text-color-secondary)] mb-8 animate-fade-in" style="animation-delay: 0.4s;">
+            <p class="text-xl md:text-2xl leading-relaxed text-[var(--text-color-secondary)] mb-6 animate-fade-in" style="animation-delay: 0.4s;">
                 I'm currently focused on skill development and building practical experience.
                 <br>
                 Stay tuned for updates on my future accomplishments and certifications in data analytics!
@@ -164,10 +245,8 @@
         </section>
     </main>
 
-    <!-- Footer - Consistent with other pages -->
     <footer class="bg-[var(--card-background)] py-6 shadow-lg rounded-t-2xl">
         <div class="container mx-auto px-4 text-center">
-            <!-- Social Icons - Consistent with other pages -->
             <div class="flex justify-center space-x-8 mb-3">
                 <a href="mailto:mauryaom74@gmail.com" class="text-[var(--link-color)] hover:text-[var(--link-hover-color)] transition-colors transform hover:scale-110" aria-label="Email Om Maurya">
                     <i class="fas fa-envelope text-2xl"></i>
@@ -179,14 +258,42 @@
                     <i class="fab fa-linkedin text-2xl"></i>
                 </a>
             </div>
-            <!-- Copyright Text - Consistent with other pages -->
             <p class="text-[var(--text-color-secondary)] text-sm">© 2025 Om Maurya. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Universal fade-in animation for elements with 'animate-fade-in' class
+            const navLinks = document.querySelectorAll('.nav-links-group a');
+            const hamburger = document.querySelector('.hamburger');
+            const navLinksGroup = document.querySelector('.nav-links-group');
+
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            navLinks.forEach(link => {
+                const linkHref = link.getAttribute('href');
+                if (linkHref === currentPage || (linkHref === 'index.html' && currentPage === '')) {
+                    link.classList.add('active-page');
+                } else {
+                    link.classList.remove('active-page');
+                }
+            });
+
+            hamburger.addEventListener('click', () => {
+                navLinksGroup.classList.toggle('active');
+                hamburger.querySelector('i').classList.toggle('fa-bars');
+                hamburger.querySelector('i').classList.toggle('fa-times');
+            });
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        navLinksGroup.classList.remove('active');
+                        hamburger.querySelector('i').classList.remove('fa-times');
+                        hamburger.querySelector('i').classList.add('fa-bars');
+                    }
+                });
+            });
+
             const observerOptions = {
                 root: null,
                 rootMargin: '0px',
@@ -205,9 +312,13 @@
             const faderObserver = new IntersectionObserver(observerCallback, observerOptions);
 
             document.querySelectorAll('.animate-fade-in').forEach(element => {
-                faderObserver.observe(element);
+                if (element.getClientRects().length && element.getBoundingClientRect().top < window.innerHeight) {
+                    element.classList.add('animate-fade-in');
+                } else {
+                    faderObserver.observe(element);
+                }
             });
-            
+
             document.body.classList.add('loaded');
         });
     </script>

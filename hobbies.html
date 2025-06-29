@@ -6,32 +6,28 @@
     <title>Hobbies - Om Maurya</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome for social media icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        /* Material You Inspired Color Variables (Adjusted for Midnight Indigo & Teal Mist) - Consistent with other pages */
         :root {
-            --md-sys-color-primary: #1A1F36; /* Deep Indigo */
-            --md-sys-color-on-primary: #FFFFFF; /* White for text on primary */
+            --md-sys-color-primary: #1A1F36;
+            --md-sys-color-on-primary: #FFFFFF;
             --md-sys-color-primary-container: #D1E4FF;
             --md-sys-color-on-primary-container: #001C3B;
-
-            --md-sys-color-secondary: #00C2A8; /* Teal Mist */
+            --md-sys-color-secondary: #00C2A8;
             --md-sys-color-on-secondary: #FFFFFF;
             --md-sys-color-secondary-container: #CCFAE0;
             --md-sys-color-on-secondary-container: #002118;
-
             --md-sys-color-tertiary: #5C4B5E;
             --md-sys-color-on-tertiary: #FFFFFF;
             --md-sys-color-tertiary-container: #E7DDEB;
             --md-sys-color-on-tertiary-container: #1C0020;
-
-            --md-sys-color-surface: #F4F7FA; /* Light Grayish Blue */
-            --md-sys-color-on-surface: #212121; /* Charcoal Black */
-            --md-sys-color-surface-variant: #E8EEF2; /* Slightly darker light grayish blue */
-            --md-sys-color-on-surface-variant: #49454F; /* Muted gray for secondary text */
-
-            /* Semantic remapping for clarity */
+            --md-sys-color-surface: #F4F7FA;
+            --md-sys-color-on-surface: #212121;
+            --md-sys-color-surface-variant: #E8EEF2;
+            --md-sys-color-on-surface-variant: #49454F;
+            --md-sys-color-outline: #79747E;
+            --md-sys-color-inverse-surface: #303030;
+            --md-sys-color-inverse-on-surface: #F0F0F0;
             --background-color: var(--md-sys-color-surface);
             --text-color-primary: var(--md-sys-color-on-surface);
             --text-color-secondary: var(--md-sys-color-on-surface-variant);
@@ -45,9 +41,10 @@
         }
 
         html, body {
-            height: 100%; 
+            height: 100%;
             margin: 0;
             padding: 0;
+            overflow-x: hidden;
         }
 
         body {
@@ -57,10 +54,9 @@
             line-height: 1.6;
             display: flex;
             flex-direction: column;
-            overflow-y: auto; /* Allow the body to scroll */
+            overflow-y: auto;
         }
 
-        /* Animations */
         .animate-fade-in {
             animation: fadeIn 1s ease-out forwards;
             opacity: 0;
@@ -71,7 +67,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Navigation link styles to match tab-button appearance on hover/active */
         .nav-link {
             padding: 0.75rem 1.5rem;
             border-radius: 9999px;
@@ -88,31 +83,28 @@
             color: var(--md-sys-color-primary);
             transform: translateY(-2px);
         }
-        
-        /* Active link style for the current page */
+
         .nav-link.active-page {
             background-color: var(--md-sys-color-primary);
             color: var(--md-sys-color-on-primary);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        /* Styles for the main content card */
         .main-card {
-            background-color: transparent; /* Remains transparent for subtlety */
-            box-shadow: none; /* No shadow for subtlety */
-            padding: 2rem 3rem; /* Adjusted padding to accommodate more content */
+            background-color: transparent;
+            box-shadow: none;
+            padding: 2rem 3rem;
         }
-        
-        /* Specific styling for the music player container */
+
         .music-player-container {
             position: relative;
             width: 100%;
-            height: 352px; /* Standard Spotify embed height */
-            overflow: hidden; 
-            border-radius: 0.75rem; /* rounded-xl */
-            border: 1px solid var(--md-sys-color-outline); /* Subtle border */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Subtle shadow */
-            background-color: white; /* Spotify embeds often assume a light background */
+            height: 352px;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            border: 1px solid var(--md-sys-color-outline);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            background-color: white;
         }
 
         .music-player-container iframe {
@@ -120,49 +112,150 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%; 
+            height: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
         }
 
-        /* Responsive adjustments for overall layout */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text-color-primary);
+        }
+
+        .nav-links-group {
+            transition: all 0.3s ease-in-out;
+        }
+
         @media (max-width: 768px) {
-            .navbar-container {
-                flex-direction: column;
-                align-items: center;
+            .hamburger {
+                display: block;
             }
+
             .nav-links-group {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 100%;
+                background-color: var(--card-background);
                 flex-direction: column;
+                justify-content: center;
                 align-items: center;
-                gap: 0.5rem;
+                gap: 2rem;
+                z-index: 100;
+                opacity: 0;
+                pointer-events: none;
             }
+
+            .nav-links-group.active {
+                right: 0;
+                opacity: 1;
+                pointer-events: auto;
+            }
+
             .nav-link {
-                width: calc(100% - 2rem); /* Full width minus padding */
+                width: 80%;
+                text-align: center;
+                font-size: 1.5rem;
+                padding: 1rem;
             }
+
+            .navbar-container {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
             .main-card {
-                padding: 1.5rem 1.5rem; /* Adjusted padding for smaller screens */
+                padding: 1.5rem 1rem;
+                width: 100%;
+                box-sizing: border-box;
+                margin-top: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .text-6xl {
+                font-size: 2.25rem;
+                line-height: 1.2;
+            }
+
+            .text-5xl {
+                font-size: 1.8rem;
+                line-height: 1.2;
+            }
+
+            .text-4xl {
+                font-size: 1.5rem;
+                line-height: 1.2;
+            }
+
+            .text-xl {
+                font-size: 0.95rem;
+            }
+
+            .text-2xl {
+                font-size: 1.05rem;
+            }
+
+            .container {
+                padding-left: 0.75rem;
+                padding-right: 0.75rem;
+            }
+
+            .music-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                max-width: 100%;
+                overflow: hidden;
+            }
+
+            .music-player-container {
+                height: 180px;
+                max-width: 100%;
+                box-sizing: border-box;
+            }
+
+            .fa-headphones-alt {
+                font-size: 4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-card {
+                padding: 1rem 0.5rem;
+                width: 100%;
             }
             .text-6xl {
-                font-size: 3.2rem;
+                font-size: 2rem;
             }
             .text-5xl {
-                font-size: 2.5rem;
+                font-size: 1.6rem;
             }
-            .text-xl {
-                font-size: 1rem;
+            .text-4xl {
+                font-size: 1.3rem;
             }
-            .text-2xl {
-                font-size: 1.125rem;
+            .text-xl, .text-2xl {
+                font-size: 0.9rem;
             }
-            /* On small screens, the grid will automatically stack vertically (grid-cols-1) */
+            .music-player-container {
+                height: 150px;
+            }
+            .fa-headphones-alt {
+                font-size: 3rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Navbar - Consistent with other pages -->
     <nav class="sticky top-0 bg-[var(--card-background)]/90 backdrop-blur-sm z-50 shadow-lg rounded-b-2xl">
-        <div class="container mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center navbar-container">
-            <a href="index.html" class="text-3xl font-bold text-[var(--link-color)] tracking-wide hover:text-[var(--link-hover-color)] transition-colors mb-4 md:mb-0">Om Maurya</a>
-            <!-- Navigation Links - Styled to match tab-buttons -->
-            <div class="flex flex-wrap justify-center md:justify-end gap-2 md:gap-4 text-lg font-medium nav-links-group">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center navbar-container">
+            <a href="index.html" class="text-3xl font-bold text-[var(--link-color)] tracking-wide hover:text-[var(--link-hover-color)] transition-colors">Om Maurya</a>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+            <div class="nav-links-group flex flex-wrap justify-center md:justify-end gap-2 md:gap-4 text-lg font-medium">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="projects.html" class="nav-link">Projects</a>
                 <a href="achievements.html" class="nav-link">Achievements</a>
@@ -171,18 +264,16 @@
         </div>
     </nav>
 
-    <!-- Main Content Area - Hobbies -->
-    <!-- Removed flex-grow and items-center from main to allow full page scrolling and content centering via max-width + mx-auto on section -->
     <main class="container mx-auto px-6 flex flex-col">
-        <section id="hobbies-content" class="rounded-2xl border border-[var(--md-sys-color-outline)]/30 main-card max-w-5xl w-full p-8 animate-fade-in mx-auto"> 
-            <div class="text-center mb-10">
-                <h2 class="text-5xl md:text-6xl font-extrabold text-[var(--link-color)] mb-4 animate-fade-in" style="animation-delay: 0.2s;">
+        <section id="hobbies-content" class="rounded-2xl border border-[var(--md-sys-color-outline)]/30 main-card max-w-5xl w-full p-8 animate-fade-in mx-auto">
+            <div class="text-center mb-6">
+                <h2 class="text-5xl md:text-6xl font-extrabold text-[var(--link-color)] mb-3 animate-fade-in" style="animation-delay: 0.2s;">
                     My Rhythmic World
                 </h2>
-                <p class="text-xl md:text-2xl leading-relaxed text-[var(--text-color-secondary)] mb-6 animate-fade-in" style="animation-delay: 0.4s;">
-                    Beyond data, I'm deeply passionate about <strong>music development</strong>, particularly <strong>EDM</strong>.
+                <p class="text-xl md:text-2xl leading-relaxed text-[var(--text-color-secondary)] mb-4 animate-fade-in" style="animation-delay: 0.4s;">
+                    Beyond data, I'm deeply passionate about music development, particularly <strong>EDM</strong>.
                     <br>
-                    My inspiration is none other than the legendary <strong>Martin Garrix</strong>, whose innovative soundscapes continually push the boundaries of electronic music.
+                    My inspiration is none other than the legendary Martin Garrix, whose innovative soundscapes continually push the boundaries of electronic music.
                     <br>
                     I've also had the exciting opportunity to <strong>create my own EDM tracks</strong>, exploring various production techniques and sounds.
                 </p>
@@ -191,43 +282,38 @@
                 </div>
             </div>
 
-            <!-- Favorite Tracks Section - Now with Spotify embeds -->
-            <div class="text-center mt-12 animate-fade-in" style="animation-delay: 0.8s;">
-                <h3 class="text-4xl font-bold text-[var(--link-color)] mb-8">
+            <div class="text-center mt-8 animate-fade-in" style="animation-delay: 0.8s;">
+                <h3 class="text-4xl font-bold text-[var(--link-color)] mb-6">
                     <i class="fas fa-music mr-3 text-[var(--md-sys-color-secondary)]"></i>My Favorite Tracks
                 </h3>
-                <!-- Changed back to grid for horizontal alignment on larger screens -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-full mx-auto music-grid"> 
-                    <!-- Track 1: Martin Garrix & Third Party - Like I Do -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-full mx-auto music-grid">
                     <div class="flex flex-col items-center w-full">
                         <div class="music-player-container">
                             <iframe src="https://open.spotify.com/embed/track/6wiQ1tAGxUsnbJXyjgXLel?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Martin Garrix & Third Party - Like I Do"></iframe>
                         </div>
-                        <p class="text-sm font-semibold text-[var(--link-color)] mt-3">Martin Garrix & Third Party - Like I Do</p>
+                        <p class="text-sm font-semibold text-[var(--link-color)] mt-2">Martin Garrix & Third Party - Like I Do</p>
                     </div>
 
-                    <!-- Track 2: Martin Garrix & Bebe Rexha - In The Name Of Love -->
                     <div class="flex flex-col items-center w-full">
                         <div class="music-player-container">
                             <iframe src="https://open.spotify.com/embed/track/0A9mHc7oYUoCECqByV8cQR?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Martin Garrix & Bebe Rexha - In The Name Of Love"></iframe>
                         </div>
-                        <p class="text-sm font-semibold text-[var(--link-color)] mt-3">Martin Garrix & Bebe Rexha - In The Name Of Love</p>
+                        <p class="text-sm font-semibold text-[var(--link-color)] mt-2">Martin Garrix & Bebe Rexha - In The Name Of Love</p>
                     </div>
 
-                    <!-- Track 3: Martin Garrix & Dua Lipa - Scared To Be Lonely -->
                     <div class="flex flex-col items-center w-full">
                         <div class="music-player-container">
                             <iframe src="https://open.spotify.com/embed/track/3ZDr3LJNCHailBSkpc29SF?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Martin Garrix & Dua Lipa - Scared To Be Lonely"></iframe>
                         </div>
-                        <p class="text-sm font-semibold text-[var(--link-color)] mt-3">Martin Garrix & Dua Lipa - Scared To Be Lonely</p>
+                        <p class="text-sm font-semibold text-[var(--link-color)] mt-2">Martin Garrix & Dua Lipa - Scared To Be Lonely</p>
                     </div>
+                </div>
+            </div>
         </section>
     </main>
 
-    <!-- Footer - Consistent with other pages -->
     <footer class="bg-[var(--card-background)] py-6 shadow-lg rounded-t-2xl">
         <div class="container mx-auto px-4 text-center">
-            <!-- Social Icons - Consistent with other pages -->
             <div class="flex justify-center space-x-8 mb-3">
                 <a href="mailto:mauryaom74@gmail.com" class="text-[var(--link-color)] hover:text-[var(--link-hover-color)] transition-colors transform hover:scale-110" aria-label="Email Om Maurya">
                     <i class="fas fa-envelope text-2xl"></i>
@@ -239,14 +325,42 @@
                     <i class="fab fa-linkedin text-2xl"></i>
                 </a>
             </div>
-            <!-- Copyright Text - Consistent with other pages -->
             <p class="text-[var(--text-color-secondary)] text-sm">© 2025 Om Maurya. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Universal fade-in animation for elements with 'animate-fade-in' class
+            const navLinks = document.querySelectorAll('.nav-links-group a');
+            const hamburger = document.querySelector('.hamburger');
+            const navLinksGroup = document.querySelector('.nav-links-group');
+
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            navLinks.forEach(link => {
+                const linkHref = link.getAttribute('href');
+                if (linkHref === currentPage || (linkHref === 'index.html' && currentPage === '')) {
+                    link.classList.add('active-page');
+                } else {
+                    link.classList.remove('active-page');
+                }
+            });
+
+            hamburger.addEventListener('click', () => {
+                navLinksGroup.classList.toggle('active');
+                hamburger.querySelector('i').classList.toggle('fa-bars');
+                hamburger.querySelector('i').classList.toggle('fa-times');
+            });
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        navLinksGroup.classList.remove('active');
+                        hamburger.querySelector('i').classList.remove('fa-times');
+                        hamburger.querySelector('i').classList.add('fa-bars');
+                    }
+                });
+            });
+
             const observerOptions = {
                 root: null,
                 rootMargin: '0px',
@@ -265,9 +379,13 @@
             const faderObserver = new IntersectionObserver(observerCallback, observerOptions);
 
             document.querySelectorAll('.animate-fade-in').forEach(element => {
-                faderObserver.observe(element);
+                if (element.getClientRects().length && element.getBoundingClientRect().top < window.innerHeight) {
+                    element.classList.add('animate-fade-in');
+                } else {
+                    faderObserver.observe(element);
+                }
             });
-            
+
             document.body.classList.add('loaded');
         });
     </script>
